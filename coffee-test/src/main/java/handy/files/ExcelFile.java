@@ -36,7 +36,7 @@ public class ExcelFile extends DataFile {
 	public ExcelFile(String filePath) throws Exception,OldFileFormatException,EmptyFileException {
 		
 		super(filePath);
-		setFileSystem(new POIFSFileSystem(getFis()));
+		//setFileSystem(new POIFSFileSystem(getFis()));
 		setWorkBook(new XSSFWorkbook(getFis()));
 		
 	}
