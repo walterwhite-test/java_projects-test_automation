@@ -5,14 +5,15 @@ import org.apache.poi.OldFileFormatException;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.ss.usermodel.Workbook;
+//import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 
 public class ExcelFile extends DataFile {
 	
 	private POIFSFileSystem fileSystem = null;
-	private Workbook workBook = null;
+	private XSSFWorkbook workBook = null;
 	private HSSFSheet[] sheets = null;
 	//private XSSFWorkbook workBookl = null;
 	
@@ -24,11 +25,11 @@ public class ExcelFile extends DataFile {
 		return fileSystem;
 	}
 
-	public void setWorkBook(HSSFWorkbook workBook) throws Exception {
+	public void setWorkBook(XSSFWorkbook workBook) throws Exception {
 		this.workBook = workBook;
 	}
 
-	public Workbook getWorkBook() throws Exception {
+	public XSSFWorkbook getWorkBook() throws Exception {
 		return workBook;
 	}
 
@@ -36,7 +37,7 @@ public class ExcelFile extends DataFile {
 		
 		super(filePath);
 		setFileSystem(new POIFSFileSystem(getFis()));
-		setWorkBook(new HSSFWorkbook(getFileSystem()));
+		setWorkBook(new XSSFWorkbook(getFis()));
 		
 	}
 
@@ -46,7 +47,7 @@ public class ExcelFile extends DataFile {
 		}
 		int sheetCnt = workBook.getNumberOfSheets();
 		for(int i = 0; i < sheetCnt; i++) {
-			this.sheets[i] = (HSSFSheet) workBook.getSheetAt(i);
+			//this.sheets[i] = (HSSFSheet) workBook.getSheetAt(i);
 		}
 	}
 
@@ -66,10 +67,10 @@ public class ExcelFile extends DataFile {
 		}
 		
 		for(int i = 0; i < sheetCnt; i++) {
-			sheetNames[i] = sheets[i].getSheetName();
-			sheets[i].getCellComment(1, 2);
-			int totalPhyRows = sheets[i].getPhysicalNumberOfRows();
-			int lastRowNum = sheets[i].getLastRowNum();
+			//sheetNames[i] = sheets[i].getSheetName();
+			//sheets[i].getCellComment(1, 2);
+			//int totalPhyRows = sheets[i].getPhysicalNumberOfRows();
+			//int lastRowNum = sheets[i].getLastRowNum();
 			//System.out.println("Physical Row Number: " + totalPhyRows);
 			//System.out.println("last Row Number: " + lastRowNum);
 			
