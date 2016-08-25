@@ -1,7 +1,10 @@
 package handy.files;
 
+import java.io.FileInputStream;
+
 import org.apache.poi.EmptyFileException;
 import org.apache.poi.OldFileFormatException;
+import org.apache.poi.POIXMLDocument;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
@@ -33,12 +36,18 @@ public class ExcelFile extends DataFile {
 		return workBook;
 	}
 
+	@SuppressWarnings("resource")
 	public ExcelFile(String filePath) throws Exception,OldFileFormatException,EmptyFileException {
 		
 		super(filePath);
 		//setFileSystem(new POIFSFileSystem(getFis()));
-		setWorkBook(new XSSFWorkbook(getFis()));
-		
+		setWorkBook(new XSSFWorkbook(getBis()));
+		/*if(POIXMLDocument.hasOOXMLHeader(new FileInputStream(filePath))) {
+			setWorkBook(new XSSFWorkbook(getBis()));
+		} else {
+			throw new IllegalArgumentException("excel format cannot be parsed !");
+		}*/
+			
 	}
 
 	public void setSheets(HSSFWorkbook wb) throws Exception {

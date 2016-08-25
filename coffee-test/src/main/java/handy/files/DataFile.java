@@ -3,6 +3,7 @@ package handy.files;
 //import java.io.BufferedOutputStream;
 //import java.io.BufferedReader;
 //import java.io.BufferedWriter;
+import java.io.BufferedInputStream;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,6 +24,7 @@ public abstract class DataFile {
 	private FileInputStream fis = null;
 	private FileOutputStream fos = null;
 	private File file = null;
+	private BufferedInputStream bis = null;
 	
 	//private InputStreamReader isr = null;
 	//private BufferedReader br = null;
@@ -40,6 +42,7 @@ public abstract class DataFile {
 		setFile(filePath);
 		setFis(filePath);
 		setFos(filePath);
+		setBis(new BufferedInputStream(getFis()));
 	}
 	
 	public void setFile(String filePath) throws Exception {
@@ -73,10 +76,21 @@ public abstract class DataFile {
 		if(null != fos) {
 			fis.close();
 		}
+		if(null != bis) {
+			bis.close();
+		}
 	}
 	
 	
 	public abstract void InitDataFile(String filePath);
+
+	public BufferedInputStream getBis() {
+		return bis;
+	}
+
+	public void setBis(BufferedInputStream bis) {
+		this.bis = bis;
+	}
 	
 	
 
