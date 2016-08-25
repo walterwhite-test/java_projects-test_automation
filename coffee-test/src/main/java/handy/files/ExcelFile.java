@@ -1,12 +1,14 @@
 package handy.files;
 
 import java.io.FileInputStream;
+import java.io.PushbackInputStream;
 
 import org.apache.poi.EmptyFileException;
 import org.apache.poi.OldFileFormatException;
 import org.apache.poi.POIXMLDocument;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 //import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -41,7 +43,11 @@ public class ExcelFile extends DataFile {
 		
 		super(filePath);
 		//setFileSystem(new POIFSFileSystem(getFis()));
-		setWorkBook(new XSSFWorkbook(getBis()));
+		/*if(!getFis().markSupported()) {
+			//setFis(new PushbackInputStream(getFis(),8));
+		}*/
+		setWorkBook(new XSSFWorkbook(OPCPackage.open(getFis())));
+		//OPCPackage.open(getFis()
 		/*if(POIXMLDocument.hasOOXMLHeader(new FileInputStream(filePath))) {
 			setWorkBook(new XSSFWorkbook(getBis()));
 		} else {
