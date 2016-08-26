@@ -21,10 +21,10 @@ import org.apache.poi.OldFileFormatException;
 
 public abstract class DataFile {
 	
-	private FileInputStream fis = null;
-	private FileOutputStream fos = null;
+	private InputStream fis = null;
+	private OutputStream fos = null;
 	private File file = null;
-	private BufferedInputStream bis = null;
+	private InputStream bis = null;
 	
 	//private InputStreamReader isr = null;
 	//private BufferedReader br = null;
@@ -39,10 +39,11 @@ public abstract class DataFile {
 		if(filePath.equals("") || null == filePath) {
 			throw new IllegalArgumentException("no file Path or file path invalid !");
 		}
-		setFile(filePath);
+		//setFile(filePath);
 		setFis(filePath);
-		setFos(filePath);
-		setBis(new BufferedInputStream(getFis()));
+		//setBis(new BufferedInputStream(getFis()));
+		//setFos(filePath);
+		
 	}
 	
 	public void setFile(String filePath) throws Exception {
@@ -53,7 +54,7 @@ public abstract class DataFile {
 		return file;
 	}
 
-	protected void setFos(String filePath) throws Exception {	
+	public void setFos(String filePath) throws Exception {	
 		this.fos = new FileOutputStream(filePath);
 	}
 
@@ -61,15 +62,19 @@ public abstract class DataFile {
 		return fos;
 	}
 
-	protected void setFis(String filePath) throws Exception,OldFileFormatException,EmptyFileException {		
+	public void setFis(String filePath) throws Exception,OldFileFormatException,EmptyFileException {		
 		this.fis = new FileInputStream(filePath);
+	}
+	
+	public void setFis(InputStream is) {		
+		this.fis = is;
 	}
 
 	protected InputStream getFis() {
 		return fis;
 	}
 		
-	protected void closeStreams() throws IOException {
+	public void closeStreams() throws IOException {
 		if(null != fis) {
 			fis.close();
 		}
@@ -84,11 +89,11 @@ public abstract class DataFile {
 	
 	public abstract void InitDataFile(String filePath);
 
-	public BufferedInputStream getBis() {
+	public InputStream getBis() {
 		return bis;
 	}
 
-	public void setBis(BufferedInputStream bis) {
+	public void setBis(InputStream bis) {
 		this.bis = bis;
 	}
 	
