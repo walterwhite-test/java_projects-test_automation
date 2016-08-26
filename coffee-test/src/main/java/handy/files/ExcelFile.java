@@ -1,5 +1,6 @@
 package handy.files;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
@@ -51,10 +52,9 @@ public class ExcelFile extends DataFile {
 		}
 		
 		if(POIFSFileSystem.hasPOIFSHeader(getFis())) {
+			//setBis(new BufferedInputStream(getFis()));
 			setWorkBook(new HSSFWorkbook(getFis()));
-		}
-		
-		if(POIXMLDocument.hasOOXMLHeader(getFis())) {
+		} else if(POIXMLDocument.hasOOXMLHeader(getFis())) {
 			setWorkBook(new XSSFWorkbook(OPCPackage.open(getFis())));
 		}
 		
@@ -70,8 +70,9 @@ public class ExcelFile extends DataFile {
 			throw new Exception("Excel Work Book is NULL !");
 		}
 		int sheetCnt = wb.getNumberOfSheets();
+		this.sheets = new Sheet[sheetCnt];
 		for(int i = 0; i < sheetCnt; i++) {
-			this.sheets[i] = workBook.getSheetAt(i);
+			this.sheets[i] = wb.getSheetAt(i);
 		}
 	}
 

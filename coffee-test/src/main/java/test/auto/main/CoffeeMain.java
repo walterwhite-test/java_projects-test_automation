@@ -8,6 +8,7 @@ public class CoffeeMain {
 
 	/**
 	 * @param args
+	 * @throws Exception 
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -20,12 +21,18 @@ public class CoffeeMain {
 			e.printStackTrace();
 		}
 		System.out.println("hello world");
-		/*try {
-			//dataFile.closeStreams();
+		try {
+			((ExcelFile)dataFile).getAllSheetNames();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			dataFile.closeStreams();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 
 	}
 
